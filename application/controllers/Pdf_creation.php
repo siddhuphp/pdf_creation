@@ -50,4 +50,23 @@ class Pdf_creation extends CI_Controller {
         $file_path = "assets/pdf/my_pdf.pdf";
         $mpdf->Output($file_path,"F");
 	}
+
+    public function save_file_landspace()
+	{
+        /* 
+            D => dowonload
+            F => save only
+            $mpdf->Output("FilePath",F);
+        */
+
+		$mpdf = new \Mpdf\Mpdf([
+            'orientation' => 'L'
+        ]);
+        $data["data"] = ["name"=>"Siddhu","age"=>"29"];
+        $html = $this->load->view('html_to_pdf',$data,true);
+        $mpdf->WriteHTML($html);
+        $time = date("y-m-d-h-i-s");
+        $file_path = "assets/pdf/my_pdf_".$time.".pdf";
+        $mpdf->Output($file_path,"F");
+	}
 }
